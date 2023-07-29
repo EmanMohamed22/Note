@@ -1,0 +1,66 @@
+
+<section class="py-4">
+   <div class="container ">
+      <div class="row">
+         <div class="col-md-8 " *ngIf="notes.length">
+            <mat-form-field class="w-100" appearance="outline">
+               <mat-label>Search..</mat-label>
+               <input matInput type="text" [(ngModel)]="value">
+               <button class="" *ngIf="value" matSuffix mat-icon-button aria-label="Clear"  (click)="value=''">
+                 <mat-icon>close</mat-icon>
+               </button>
+             </mat-form-field>
+         </div>
+         
+        <div class="col-md-4">
+         <div class="d-flex justify-content-end">
+            <button mat-raised-button color="primary"  (click)="openDialog()">Add Note</button>
+           </div>
+        </div>
+      </div>
+      </div>
+     
+
+ <div class="container mt-5">
+   <div class="row g-3 row-cols-1 row-cols-md-2 row-cols-lg-3">
+          <div class="col" *ngFor="let note of notes | filter:value; index as index">
+      
+            <div class="card shadow">
+               <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" class="position-absolute end-0">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="setData(note)"> 
+                    <mat-icon>edit</mat-icon>
+                    <span>Edit</span>
+                  </button>
+                  <button mat-menu-item [swal]="deleteSwal">
+                    <mat-icon>delete_forever</mat-icon>
+                    <span>Delete</span>
+                  </button>
+                  <swal
+                  #deleteSwal
+                  title="Delete {{ note.title }}?"
+                  text="This cannot be undone"
+                  icon="question"
+                  [showCancelButton]="true"
+                  [focusCancel]="true"
+                  (confirm)="deleteNote( note._id ,index)">
+                </swal>
+                
+               
+                </mat-menu>
+               <div class="card-body">
+                 
+                   
+                  <h3>{{note.title.split("").slice(0,30).join("")}}</h3>
+                  <hr>
+                  <p class="text-muted">{{note.desc.split("").slice(0,30).join("")}}</p>
+               </div>
+               
+            </div>
+          </div>
+   </div>
+ </div>
+
+</section>

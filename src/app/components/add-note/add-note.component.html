@@ -1,0 +1,23 @@
+<section class="p-5 bg-white rounded shadow">
+    <form [formGroup]="mainForm" (ngSubmit)="sendNote()">
+        <h2>Add Notes</h2>
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Title</mat-label>
+          <input matInput placeholder="Ex. sunday"  formControlName="title">
+          <mat-error *ngIf="mainForm.get('title')?.hasError('required')">
+            Title is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Details</mat-label>
+          <textarea matInput placeholder="Ex. I have meeting..." formControlName="desc"></textarea>
+          <mat-error *ngIf="mainForm.get('desc')?.hasError('required')">
+            Desc is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" [disabled]="mainForm.invalid" *ngIf="!data">Add Note</button>
+        <button mat-raised-button color="primary" *ngIf="data">Update Note</button>
+
+      </form>
+</section>
